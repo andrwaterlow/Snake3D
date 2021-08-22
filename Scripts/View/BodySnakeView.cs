@@ -20,21 +20,10 @@ namespace Assets.Scripts.View
 
         private void OnCollisionEnter(Collision collision)
         {
-            if(collision.collider.TryGetComponent<BodyFoodView>(out BodyFoodView bodyFoodView))
+            if(collision.collider.TryGetComponent<FoodView>(out FoodView FoodView))
             {
                 _bodyViewModel.StartAction();
             }
-        }
-
-        private void Update()
-        {
-            Debug.Log( _bodyViewModel._snake.transform.childCount);
-            _bodyViewModel.MoveBody();
-        }
-
-        private void Start()
-        {
-            _bodyViewModel.CreateBodySnake();
-        }
+        } 
     }
 }

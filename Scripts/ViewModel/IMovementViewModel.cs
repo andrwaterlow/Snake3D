@@ -13,5 +13,6 @@ namespace Assets.Scripts.ViewModel
         event Action GetKeyRight;
 
         void Move();
+        void MoveFaster();
     }
 }

@@ -12,10 +12,12 @@ namespace Assets.Scripts.ViewModel
         public event Action GetKeyLeft;
         public event Action GetKeyRight;
 
+        private float currentTime;
+
         private GameObject _snake;
 
         public IMovementModel MovementModel { get; }
-
+        
         public MovementViewModel(IMovementModel movementModel, GameObject gameObject)
         {
             MovementModel = movementModel;
@@ -24,11 +26,34 @@ namespace Assets.Scripts.ViewModel
 
         public void Move()
         {
+            currentTime += Time.deltaTime;
+
             OnAction();
-            var Speed = MovementModel.Speed * Time.deltaTime;
-            _snake.transform.GetChild(0).transform.Translate(MovementModel.CourseCurrent * Speed);
+
+            if (currentTime >= MovementModel.Speed && MovementModel.CourseCurrent != Vector3.zero)
+            {
+                _snake.transform.GetChild(0).transform.localPosition += MovementModel.CourseCurrent/2;
+                MoveBody();
+                currentTime = 0;
+            }
         }
-        
+
+        public void MoveFaster()
+        {
+            MovementModel.Speed -= 0.0005f;
+        }
+
+        private void MoveBody()
+        {
+            var childCount = _snake.transform.childCount - 1;
+  
+            for (int i = childCount; i > 0; i--)
+            {
+                _snake.transform.GetChild(i).transform.position = _snake.transform.GetChild(
+                    i - 1).transform.position;
+            }
+        }
+
         private void OnAction()
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Model
@@ -12,6 +11,7 @@ namespace Assets.Scripts.Model
         public Vector3 CourseRight { get; set; }
         public Vector3 CourseCurrent { get; set; }
 
+
         public MovementModel(float speed)
         {
             Speed = speed;
@@ -21,14 +21,16 @@ namespace Assets.Scripts.Model
             CourseRight = new Vector3();
             CourseCurrent = new Vector3();
             CreateVector2Course();
+
         }
 
         private void CreateVector2Course()
         {
             CourseUp = Vector3.forward;
-            CourseDown = Vector3.back;
+            CourseDown = Vector3.back; 
             CourseLeft = Vector3.left;
             CourseRight = Vector3.right;
+            CourseCurrent = Vector3.zero;
         }
     }
 }

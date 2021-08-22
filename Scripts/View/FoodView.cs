@@ -11,11 +11,17 @@ namespace Assets.Scripts.View
         {
             _foodViewModel = foodViewModel;
             _foodViewModel.OnBeEated += Death;
+            _foodViewModel.OnBeEated += CreateNewFood;
         }
 
         private void Death()
         {
-            
+            Destroy(_foodViewModel.FoodModel.NewFood);
+        }
+
+        private void CreateNewFood()
+        {
+            _foodViewModel.CreateNewFood();
         }
     }
 }

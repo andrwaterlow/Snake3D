@@ -13,6 +13,7 @@ namespace Assets.Scripts.Model
 
         public Vector3 NewLocation { get; set; }
         public GameObject Food { get; set; }
+        public GameObject NewFood { get; set; }
 
         private GameObject _playArea;
 
@@ -25,10 +26,11 @@ namespace Assets.Scripts.Model
 
         private void GetSizeAreaPlay()
         {
-            SizePlusOfPlayAreaX = _playArea.transform.position.x * 2;
-            SizeMinusOfPlayAreaX = _playArea.transform.position.x / 2;
-            SizePlusOfPlayAreaZ = _playArea.transform.position.z * 2;
-            SizeMinusOfPlayAreaZ = _playArea.transform.position.z / 2;
+            var foodSize = 0.5f;
+            SizePlusOfPlayAreaX = _playArea.transform.position.x * 2 - foodSize;
+            SizeMinusOfPlayAreaX = _playArea.transform.position.x / 2 - foodSize;
+            SizePlusOfPlayAreaZ = _playArea.transform.position.z * 2 - foodSize;
+            SizeMinusOfPlayAreaZ = _playArea.transform.position.z / 2 - foodSize;
         }
     }
 }

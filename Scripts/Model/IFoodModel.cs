@@ -6,6 +6,7 @@ namespace Assets.Scripts.Model
     {
         Vector3 NewLocation { get; set; }
         GameObject Food { get; set; }
+        GameObject NewFood { get; set; }
 
         float SizePlusOfPlayAreaX { get; set; }
         float SizeMinusOfPlayAreaX { get; set; }

@@ -11,31 +11,37 @@ namespace Assets.Scripts
         [SerializeField] private GameObject _playArea;
         [SerializeField] private MovementView _movementView;
         [SerializeField] private BodySnakeView _bodySnakeView;
-        [SerializeField] private BodyFoodView _bodyFoodView;
         [SerializeField] private DeathForSnakeView _deathForSnakeView;
         [SerializeField] private WinForSnakeView _winForSnakeView;
         [SerializeField] private EatedFoodView _eatedFoodView;
         [SerializeField] private FoodView _foodView;
 
+        [SerializeField] private float _holdUpSpeed;
+        [SerializeField] private int _FoodToEat;
+
         private void Start()
         {
-            MovementModel movementModel = new MovementModel(5.0f);
+            InitializeGame();
+        }
+
+        private void InitializeGame()
+        {
+            MovementModel movementModel = new MovementModel(_holdUpSpeed);
             MovementViewModel movementViewModel = new MovementViewModel(movementModel, _snake);
             _movementView.Initialize(movementViewModel);
 
             BodyModel bodyModel = new BodyModel();
             BodyViewModel bodyViewModel = new BodyViewModel(bodyModel, _snake);
-            _bodyFoodView.Initialize(bodyViewModel);
             _bodySnakeView.Initialize(bodyViewModel);
 
-            EndModel endModel = new EndModel(1);
+            EndModel endModel = new EndModel(_FoodToEat);
             EndViewModel endViewModel = new EndViewModel(endModel);
             _deathForSnakeView.Initialize(endViewModel);
             _winForSnakeView.Initialize(endViewModel);
 
             FoodModel foodModel = new FoodModel(_playArea);
             FoodViewModel foodViewModel = new FoodViewModel(foodModel);
-            _eatedFoodView.Initialize(foodViewModel);
+            _eatedFoodView.Initialize(foodViewModel, movementViewModel);
             _foodView.Initialize(foodViewModel);
         }
     }

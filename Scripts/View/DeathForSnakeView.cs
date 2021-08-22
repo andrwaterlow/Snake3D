@@ -13,9 +13,9 @@ namespace Assets.Scripts.View
             EndViewModel.OnDeath += LoseGame;
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter(Collider other)
         {
-            if (collision.collider.TryGetComponent<MovementView>(out MovementView MovementView))
+            if (other.TryGetComponent<BodySnakeView>(out BodySnakeView MovementView))
             {
                 EndViewModel.ActionDeath();
             }
@@ -23,7 +23,7 @@ namespace Assets.Scripts.View
 
         private void LoseGame()
         {
-            Debug.Log("ЛОХ!!!");
+            Debug.Log("Увы вы вне игры!");
             Time.timeScale = 0;
         }
     }

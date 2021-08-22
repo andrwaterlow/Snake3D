@@ -9,7 +9,7 @@ namespace Assets.Scripts.ViewModel
         public IBodyModel BodyModel { get; }
 
         public event Action OnEat;
-        public GameObject _snake { get; set; }
+        private GameObject _snake { get; set; }
 
         public BodyViewModel(IBodyModel bodyModel, GameObject snake)
         {
@@ -22,35 +22,10 @@ namespace Assets.Scripts.ViewModel
             OnEat.Invoke();
         }
 
-        public void MoveBody()
-        {     
-    
-        }
-
-        public void CreateBodySnake()
-        {
-            CreateBodyForStart();
-            CreateBodyForStart();
-
-            BodyModel.SnakeBody[BodyModel.SnakeBody.Count - 1].transform.SetParent(
-                BodyModel.SnakeBody[BodyModel.SnakeBody.Count - 2].transform);
-
-            BodyModel.SnakeBody[BodyModel.SnakeBody.Count - 2].transform.SetParent(
-                _snake.transform.GetChild(0));
-        }
-
-        private void CreateBodyForStart()
-        {
-            CreateNewBody();
-            BodyModel.SnakeBody.Add(BodyModel.Newbody);
-        }
-
         public void AddBodyForSnake()
         {
             CreateNewBody();
-            BodyModel.SnakeBody.Add(BodyModel.Newbody);
-            BodyModel.SnakeBody[BodyModel.SnakeBody.Count - 1].transform.SetParent(
-                BodyModel.SnakeBody[BodyModel.SnakeBody.Count - 2].transform);
+            BodyModel.Newbody.transform.SetParent(_snake.transform);
         }
 
         private void CreateNewBody()
@@ -61,29 +36,8 @@ namespace Assets.Scripts.ViewModel
 
         private void SetNewPositionForBody()
         {
-            GetLastBodyPosition();
-            float sizeOfBody = 0.5f;
-            Vector3 positionOfNewBody;
-            float newPositionX = BodyModel.PositionOfLastBody.x;
-            float newPositionY = BodyModel.PositionOfLastBody.y;
-            float newPositionZ = BodyModel.PositionOfLastBody.z + sizeOfBody;
-            positionOfNewBody = BodyModel.PositionOfLastBody;
-            positionOfNewBody.Set(newPositionX, newPositionY, newPositionZ);
-            BodyModel.PositionOfNewBody = positionOfNewBody;
-        }
-
-        private void GetLastBodyPosition()
-        {
-            var numberOfChild = BodyModel.SnakeBody.Count - 1;
-
-            if (BodyModel.SnakeBody.Count < 1)
-            {
-                BodyModel.PositionOfLastBody = _snake.transform.GetChild(0).position;
-            }
-            else
-            {
-                BodyModel.PositionOfLastBody = BodyModel.SnakeBody[numberOfChild].transform.position;
-            } 
+            var numberOfChild = _snake.transform.childCount - 1;
+            BodyModel.PositionOfNewBody = _snake.transform.GetChild(numberOfChild).transform.GetChild(0).transform.position;
         }
     }
 }

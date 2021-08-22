@@ -9,6 +9,5 @@ namespace Assets.Scripts.Model
         Vector3 PositionOfLastBody { get; set; }
         GameObject Body { get; set; }
         GameObject Newbody { get; set; }
-        List<GameObject>SnakeBody { get; set; }
     }
 }

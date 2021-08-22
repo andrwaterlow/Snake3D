@@ -12,9 +12,5 @@ namespace Assets.Scripts.ViewModel
 
         void StartAction();
         void AddBodyForSnake();
-        void MoveBody();
-        void CreateBodySnake();
-
-        GameObject _snake { get; set; } //УДАЛИТЬ!
     }
 }
